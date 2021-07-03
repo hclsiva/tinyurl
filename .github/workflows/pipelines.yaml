@@ -8,7 +8,7 @@ env:
   PROJECT_ID: ${{secrets.GKE_PROJECT}}
   GKE_CLUSTER: my-first-cluster
   GKE_ZONE: us-central1-c
-  DEPLOYMENT_NAME: tinyurl-deployment
+  DEPLOYMENT_NAME: tinyurl
   IMAGE: tinyurl-image
   TAG: 1.0.0
 
