@@ -70,4 +70,9 @@ public class TinyURLController {
 	public TinyURLBean findUrl(@RequestParam(value = "hash") String hash) {
 		return config.getCassandraDatabaseAccess().findUrl(hash);
 	}
+
+	@GetMapping(path="/health", produces = MediaType.APPLICATION_JSON_VALUE)
+	public String checkHealth() {
+		return "Tinyurl is hit !!!!!.";
+	}
 }
