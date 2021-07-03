@@ -19,27 +19,28 @@ jobs:
 
     steps:
 
-      -name: Checkout Repository
-       uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v2
       
-      -name: Setup JDK 1.8
-       uses: actions/setup-java@v1
+      - name: Setup JDK 1.8
+        uses: actions/setup-java@v1
         with:
           java-version: 1.8
           server-id: github
           settings-path: ${{ github.workspace }}
-      -name: Build with Maven
-       run: mvn clean package -DskipTests
+          
+      - name: Build with Maven
+        run: mvn clean package -DskipTests
 
-      -name: Setup Google Cloud CLI
-       uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+      - name: Setup Google Cloud CLI
+        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
         with:
           service_account_key: ${{secrets.GKE_SA_KEY}}
           project_id: ${{secrets.GKE_PROJECT}}
-      -name: Configure Docker
-       run: |-
+      - name: Configure Docker
+        run: |-
           gcloud --quiet auth configure-docker
       - name: Get GKE Credentials
         run: |-
