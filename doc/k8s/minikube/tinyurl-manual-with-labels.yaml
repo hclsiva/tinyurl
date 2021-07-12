@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tinyurl-manual-v2
+  labels:
+    creation_method: manual
+    env: prod
+spec:
+  containers:
+  - image: hclsiva/tinyurl
+    name: tinyurl
+    ports:
+    - containerPort: 8085
+      protocol: TCP
