@@ -37,6 +37,7 @@ kubectl port-forward tinyurl-manual 8888:8080
 Then run, 
 
 http://localhost:8888/greeting/sayHello?name=Siva
+
 http://localhost:8888/tinyurl/health
 
 # List the pods and its labels
