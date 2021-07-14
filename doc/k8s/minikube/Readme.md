@@ -80,3 +80,21 @@ kubectl get pods --namespace kube-system
 ## To create a namespace
 kubectl create namespace custom-namespace
 kubectl create -f custom-namespace.yaml
+
+# Delete Pods
+
+## To delete pods by name
+kubectl delete pods tinyurl-gpu
+
+## To delete pods by label
+kubectl delete pods -l creation_method=manual
+
+## To delete pods by namespace
+kubectl delete pods ns custom-namespace
+
+## To delete all pods
+kubectl delete po --all
+
+## To delete everything
+kubectl delete all --all
+
