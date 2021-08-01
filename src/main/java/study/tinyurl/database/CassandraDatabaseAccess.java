@@ -25,11 +25,22 @@ public class CassandraDatabaseAccess {
 	}
 	public void init() {
 		this.cassandraIp = env.getProperty("CASSANDRA_IP_ADDRESS");
-		this.cassandraPort = env.getProperty("CASSANDRA_PORT");		
-		this.dbConnector = CassandraConnector.getInstance(cassandraIp, Integer.parseInt(cassandraPort));
-		this.session = dbConnector.getSession();
+		this.cassandraPort = env.getProperty("CASSANDRA_PORT");
+		try {
+			this.dbConnector = CassandraConnector.getInstance(cassandraIp, Integer.parseInt(cassandraPort));
+			this.session = dbConnector.getSession();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 	public Response insertURL(TinyURLBean tinyUrlBean) {
+		Response response = new Response(); 
+		if(dbConnector == null) {
+			response.setStatus(ResponseEnum.FAILURE);
+			response.setStatusMessage("Database not reachable. Could not process the request");
+			return response;
+		}
+
 		StringBuilder insertQuery = new StringBuilder("insert into tinyurl.url(hash,originalurl,")
 				.append( "creationdate,expirationdate,userid) ")
 				.append("values ('" +tinyUrlBean.getHash())
@@ -38,7 +49,7 @@ public class CassandraDatabaseAccess {
 				.append("," + tinyUrlBean.getExpirationDate())
 				.append("," + tinyUrlBean.getUserID()+" )");
 		System.out.println("Insert Query = " +insertQuery.toString());
-		Response response = new Response();
+
 		try {
 			this.session.execute(insertQuery.toString());
 			response.setStatus(ResponseEnum.SUCCESS);
@@ -52,6 +63,9 @@ public class CassandraDatabaseAccess {
 	}
 	public TinyURLBeanList findAll() {
 		TinyURLBeanList tinyurlBeanList = new TinyURLBeanList();
+		if(this.dbConnector == null){
+			return tinyurlBeanList;
+		}
 		StringBuilder selectBulk = new StringBuilder("SELECT * FROM TINYURL.URL");
 		try {
 			ResultSet resultSet =this.session.execute(selectBulk.toString());
@@ -71,6 +85,10 @@ public class CassandraDatabaseAccess {
 	}
 	public TinyURLBean findUrl(String hash) {
 		TinyURLBean tinyurlbean = new TinyURLBean();
+		if(this.dbConnector == null){
+			return tinyurlbean;
+		}
+
 		StringBuilder selectBulk = new StringBuilder("SELECT * FROM TINYURL.URL WHERE HASH='"+hash+"'");
 		try {
 			ResultSet resultSet =this.session.execute(selectBulk.toString());
@@ -84,6 +102,10 @@ public class CassandraDatabaseAccess {
 		}
 		System.out.println(tinyurlbean);
 		return tinyurlbean;
+	}
+	public String getHealthStatus(){
+		String status = (this.session != null)? "Cassandra is reachable": "Cassandra is not up. Check if it is reachable";
+		return status;
 	}
 	public String toString() {
 		return "This is cassandra database helper";

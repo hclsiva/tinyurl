@@ -1,6 +1,8 @@
 package study.tinyurl.controller;
 
 import java.util.Date;
+import java.util.Map;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -72,7 +74,10 @@ public class TinyURLController {
 	}
 
 	@GetMapping(path="/health", produces = MediaType.APPLICATION_JSON_VALUE)
-	public String checkHealth() {
-		return "Tinyurl is hit !!!!!.";
+	public Map checkHealth() {
+		Map<String,String> healthMap = new HashMap<String,String>(0);
+		healthMap.put("Rest Url","Reachable");
+		healthMap.put("Cassandra Status",config.getCassandraDatabaseAccess().getHealthStatus());
+		return healthMap;
 	}
 }
