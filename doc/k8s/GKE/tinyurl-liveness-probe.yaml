@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tinyurl-liveness
+spec:
+  containers:
+  - image: hclsiva/tinyurl-unhealthy
+    name: tinyurl
+    livenessProbe:
+      httpGet:
+        path: /
+        port: 8080
