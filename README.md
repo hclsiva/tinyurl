@@ -28,7 +28,7 @@ Method : Get
 URL : http://localhost:8085/tinyurl/getUrl?hash=7b081b13
 
 
-##Single url Insert
+## Single url Insert
 
 Method : Post
 
