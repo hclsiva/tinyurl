@@ -1,7 +1,7 @@
 # tinyurl
 System Design Study for tinyurl
 
-Added gcloud kubernetes
+Added gcloud kubernetes.
 
 ## Say Hello
 
