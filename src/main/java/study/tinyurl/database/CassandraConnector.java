@@ -14,6 +14,7 @@ public class CassandraConnector {
 	private String datacenter = "datacenter1";
 
 	private CassandraConnector(String node, Integer port) {
+
 		this.connect(node, port, datacenter);
 	}
 
@@ -27,6 +28,7 @@ public class CassandraConnector {
 	}
 
 	public CqlSession getSession() {
+
 		return this.session;
 	}
 	
