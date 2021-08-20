@@ -3,9 +3,12 @@ package study.tinyurl.logic;
 import java.nio.charset.StandardCharsets;
 
 import com.google.common.hash.Hashing;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import study.tinyurl.database.CassandraConnector;
 
 public class TinyURLGenerator {
-
+	static final Logger log = LoggerFactory.getLogger(TinyURLGenerator.class);
 	public String generateTinyURL(String originalURL){
 		if(originalURL == null) {
 			return null;
@@ -14,10 +17,6 @@ public class TinyURLGenerator {
 	}
 	public static void main(String[] args) {
 		TinyURLGenerator tinyURL = new TinyURLGenerator();
-		System.out.println(tinyURL.generateTinyURL("www.google.co.in"));
-		System.out.println(tinyURL.generateTinyURL("www.google.co.in"));
-		System.out.println(tinyURL.generateTinyURL("www.google.co.in"));
-		System.out.println(tinyURL.generateTinyURL("www.google.co.in"));
-		System.out.println(tinyURL.generateTinyURL("www.google.co.in"));
+		log.info(tinyURL.generateTinyURL("www.google.co.in"));
 	}
 }

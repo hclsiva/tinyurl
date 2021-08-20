@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.Map;
 import java.util.HashMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,13 +27,13 @@ import study.tinyurl.logic.TinyURLGenerator;
 @RequestMapping("/tinyurl")
 public class TinyURLController {
 	TinyURLGenerator tinyUrlGenerator = new TinyURLGenerator();
-	
+	static final Logger log = LoggerFactory.getLogger(TinyURLController.class);
 	@Autowired
 	ApplicationConfig config = null;
 	
 	@PostMapping(path = "/insertUrl", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Response insertUrl(@RequestBody RequestInput input) {
-		System.out.println("RequestBody is = " + input);
+		log.info("RequestBody is = " + input);
 		TinyURLBean tinyurlbean = new TinyURLBean();
 		tinyurlbean.setHash(tinyUrlGenerator.generateTinyURL(input.getUrl()));
 		tinyurlbean.setOriginalURL(input.getUrl());

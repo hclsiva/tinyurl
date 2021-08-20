@@ -1,5 +1,7 @@
 package study.tinyurl.database;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 
@@ -20,7 +22,7 @@ public class CassandraDatabaseAccess {
 	private String cassandraPort = null;
 	private CassandraConnector dbConnector = null;
 	private CqlSession session = null;
-	
+	static final Logger log = LoggerFactory.getLogger(CassandraDatabaseAccess.class);
 	public CassandraDatabaseAccess() {
 	}
 	public void init() {
@@ -48,7 +50,7 @@ public class CassandraDatabaseAccess {
 				.append("'," + tinyUrlBean.getCreationDate()) 
 				.append("," + tinyUrlBean.getExpirationDate())
 				.append("," + tinyUrlBean.getUserID()+" )");
-		System.out.println("Insert Query = " +insertQuery.toString());
+		log.info("Insert Query = " +insertQuery.toString());
 
 		try {
 			this.session.execute(insertQuery.toString());
@@ -80,7 +82,7 @@ public class CassandraDatabaseAccess {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(tinyurlBeanList);
+		log.info(tinyurlBeanList.toString());
 		return tinyurlBeanList;
 	}
 	public TinyURLBean findUrl(String hash) {
@@ -100,7 +102,7 @@ public class CassandraDatabaseAccess {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(tinyurlbean);
+		log.info(tinyurlbean.toString());
 		return tinyurlbean;
 	}
 	public String getHealthStatus(){

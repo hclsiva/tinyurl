@@ -4,6 +4,8 @@ import java.net.InetSocketAddress;
 
 import com.datastax.oss.driver.api.core.CqlSession;
 import com.datastax.oss.driver.api.core.CqlSessionBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CassandraConnector {
 
@@ -12,7 +14,7 @@ public class CassandraConnector {
 	private CqlSession session;
 
 	private String datacenter = "datacenter1";
-
+	static final Logger log = LoggerFactory.getLogger(CassandraConnector.class);
 	private CassandraConnector(String node, Integer port) {
 
 		this.connect(node, port, datacenter);
@@ -24,7 +26,7 @@ public class CassandraConnector {
 		builder.addContactPoint(new InetSocketAddress(node, port));
 		builder.withLocalDatacenter(datacenter).withKeyspace("tinyurl");
 		session = builder.build();
-		System.out.println("Session = " + session);
+		log.info("Session = " + session);
 	}
 
 	public CqlSession getSession() {
