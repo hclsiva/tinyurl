@@ -49,7 +49,7 @@ public class TinyURLController {
 	public Response insertBulkUrl() {
 		String baseurl="https://www.google.co.in/search?q=";
 		Response response = null;
-		for(int i =1; i <=1000000; i++) {
+		for(int i =1; i <=10000; i++) {
 			String url = baseurl + i;
 			TinyURLBean tinyurlbean = new TinyURLBean();
 			tinyurlbean.setHash(tinyUrlGenerator.generateTinyURL(url));
