@@ -46,4 +46,4 @@ Method : Post
 
 URL : http://localhost:8085/tinyurl/bulkInsert
 
-- Inserts 1 million entries for the url https://www.google.co.in/search?q=$n. where $n is from the count 1 to 1 Million.
+- Inserts 1 million entries for the url https://www.google.co.in/search?q=$n. where $n is from the count 1 to 1 Million
