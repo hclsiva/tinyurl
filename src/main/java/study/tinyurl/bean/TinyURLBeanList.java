@@ -21,5 +21,11 @@ public class TinyURLBeanList {
 	public void add(TinyURLBean tinyurlbean) {
 		this.tinyURLBeanList.add(tinyurlbean);
 	}
-	
+
+	@Override
+	public String toString() {
+		return "TinyURLBeanList{" +
+				"tinyURLBeanList= " + tinyURLBeanList==null?"tinyURLBeanList is empty":String.valueOf(tinyURLBeanList.size()) +
+				'}';
+	}
 }
