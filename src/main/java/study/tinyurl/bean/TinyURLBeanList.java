@@ -25,7 +25,8 @@ public class TinyURLBeanList {
 	@Override
 	public String toString() {
 		return "TinyURLBeanList{" +
-				"tinyURLBeanList= " + tinyURLBeanList==null?"tinyURLBeanList is empty":String.valueOf(tinyURLBeanList.size()) +
-				'}';
+				"Size = " + ((tinyURLBeanList==null)?"tinyURLBeanList is empty":String.valueOf(tinyURLBeanList.size()))	+
+
+				"}";
 	}
 }
