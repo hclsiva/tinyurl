@@ -105,6 +105,32 @@ public class CassandraDatabaseAccess {
 		log.info(tinyurlbean.toString());
 		return tinyurlbean;
 	}
+	public long findUrlCount() {
+		StringBuilder select = new StringBuilder("SELECT count(*) as count FROM TINYURL.URL");
+		long count = 0;
+		try {
+			ResultSet resultSet =this.session.execute(select.toString());
+			Row row = resultSet.one();
+			count = row.getLong("count");
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		log.info("Total rows = " + count);
+		return count;
+	}
+
+	public Response cleanTable(){
+		StringBuilder select = new StringBuilder("TRUNCATE TABLE TINYURL.URL");
+		Response response = new Response();
+		try {
+			this.session.execute(select.toString());
+			response.setStatus(ResponseEnum.SUCCESS);
+		}catch (Exception e) {
+			response.setStatus(ResponseEnum.FAILURE);
+			response.setStatusMessage("Unable to clean DB. Cause :: "+e.getMessage());
+		}
+		return response;
+	}
 	public String getHealthStatus(){
 		String status = (this.session != null)? "Cassandra is reachable": "Cassandra is not up. Check if it is reachable";
 		return status;
