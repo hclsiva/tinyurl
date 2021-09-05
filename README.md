@@ -10,5 +10,5 @@ http://localhost:8085/swagger-ui/#/
 ## Swagger Docs GKE 
 
 http://[Cluster IP]/swagger-ui/
----
+
 
