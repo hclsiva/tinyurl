@@ -6,8 +6,8 @@ on:
       - main
 env:
   PROJECT_ID: ${{secrets.GKE_PROJECT}}
-  GKE_CLUSTER: cluster-1
-  GKE_ZONE: europe-north1-a
+  GKE_CLUSTER: 	gke-cluster-1
+  GKE_ZONE: europe-north1
   DEPLOYMENT_NAME: tinyurl
   IMAGE: tinyurl-image
   TAG: 1.0.0
